@@ -1,23 +1,58 @@
-[colours]
+;Cam's Polybar config, made with help from the polybar wiki
+;https://github.com/polybar/polybar/wiki/Configuration
+;and this very helpful YT tutorial
+;https://www.youtube.com/watch?v=S1jQfGcKjtA
+
+
+;Varialbes for colours, not all are currently used,
+;uses 3 or 4 channel ARGB hexes (#RGB or #RRGGBB or #AARRGGBB)
+;with A = alpha, R = red, G = green, & B = blue
+[colours] 
+;Colours for the background, as we want transparency,
+;we use 4 channel hexes
 background = #cc17002f
 background-alt = #ccde8e48
+;colours for the text, as we *don't* want transparency
+;we use 3 channel hexes
 primary = #de8e48
 primary-alt = #17002f
+;an alert colour, currently not used
 alert = #f7768e
 
+;define the bar
 [bar/top]
+;have the bar on the top of the screen
 bottom = false
+;select the montior, to find all aviable monitors use the following:
+; Use either of the following command to list available outputs:
+; $ polybar -M | cut -d ':' -f 1
+; $ xrandr -q | grep " connected" | cut -d ' ' -f1
+; If no monitor is given, the primary monitor is used if it exists
 monitor = XWAYLAND0 
 
+;set the background colour of the bar using the variable we set up earlier
 background = ${colours.background}
 
+;set some boarders, I've gone for a bottom boarder, but you can use 
+;"border-<top|left|right|bottom>-size = <n>" to make a border on any side you want
+;if you want a boarder round the whole bar just use "border-size = <n>" instead
 border-bottom-size = 3
+;define the colour of the boarder, I used the background-alt colour we set up earlier
 border-bottom-color = ${colours.background-alt}
 
-font-0 = Hack Nerd Font:size=10;1
+;delacre the font from those installed on your system
+;you can declare multiple fonts to use as fall backs
+;delare fallback fonts as "font-<n> = <name of font>:size=<size of font>"
+font-0 = Hack Nerd Font:size=10
 
+;define what modules you are using and where they should go
+;each module should be seperated by a whitespace
+;e.g. "modules-<left|center|right> = Foo Goo"
+;define which modules shoud be justifed to the left
 modules-left = xwindow
+;define which modules shoud be justifed to the centre
 modules-center = date
+;define which modules shoud be justifed to the right
 modules-right = battery wlan
 
 [module/xwindow]
@@ -38,7 +73,7 @@ ramp-signal-1 = ▃
 ramp-signal-2 = ▅ 
 ramp-signal-3 = ▇
 
-format-disconnected = %{A1:networkmanager_dmenu:} %{A}
+format-disconnected = %{A1:networkmanager_dmenu:} No connection %{A}
 
 [module/date]
 type = internal/date
